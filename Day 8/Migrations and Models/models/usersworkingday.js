@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       UsersWorkingDay.belongsTo(models.WorkingDay, {foreignKey: 'workingDayId'})    }
   }
   UsersWorkingDay.init({
-    userId: DataTypes.INTEGER,
-    WorkingDayId: DataTypes.INTEGER
+    userId: {
+      type : DataTypes.INTEGER,
+      allowNull: false
+    },
+    WorkingDayId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'UsersWorkingDay',

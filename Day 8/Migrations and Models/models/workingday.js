@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   WorkingDay.init({
-    weekDay: DataTypes.STRING,
-    workingDate: DataTypes.DATE,
-    isWorking: DataTypes.BOOLEAN
+    weekDay: {type:DataTypes.STRING,allowNull:false},
+    workingDate: {type:DataTypes.DATE,allowNull: false},
+    isWorking: {type:DataTypes.BOOLEAN,allowNull:false}
   }, {
     sequelize,
     modelName: 'WorkingDay',

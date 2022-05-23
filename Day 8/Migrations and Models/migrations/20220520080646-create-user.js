@@ -9,12 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          isEmail: true,
+        },
       },
       firstName: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.STRING,
+        validate: {
+          len: [5, 10]
+        }
       },
       lastName: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       companyId: {

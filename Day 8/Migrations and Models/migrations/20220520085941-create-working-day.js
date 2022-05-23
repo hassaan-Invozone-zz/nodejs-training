@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       weekDay: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       workingDate: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       isWorking: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       createdAt: {

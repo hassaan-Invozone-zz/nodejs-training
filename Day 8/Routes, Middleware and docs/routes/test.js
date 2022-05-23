@@ -7,8 +7,7 @@ router.use((req, res, next) => {
     next();
 });
 
-router
-    .route("/cars")
+router.route("/cars")
     .get((req, res) => {
         ///things/cars
         res.send("hi get /things/cars");
