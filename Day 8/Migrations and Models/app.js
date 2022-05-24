@@ -1,6 +1,17 @@
 const service = require('./service')
+const models = require('./models');
+const User = models.User;
 
-let result = service.importCSV(__dirname+'/seeders/test.csv').then(res => {
 
-console.log(result)
+ User.create({
+     firstName: "Nathan",
+     lastName: "Doe",
+     companyId: 1,
+     email: "nathan@mail.com",
+ }).then (r =>{
+     console.log(r)
+ });
+
+let result = service.importCSV(__dirname+'/seeders/company.csv').then(res => {
+    console.log(res)
 })

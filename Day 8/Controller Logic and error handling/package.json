@@ -1,0 +1,7 @@
+{
+  "name": "Controller Logic and error handling",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

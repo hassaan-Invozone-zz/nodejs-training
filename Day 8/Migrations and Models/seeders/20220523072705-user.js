@@ -1,7 +1,11 @@
+const service = require("../service");
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-           // await queryInterface.bulkInsert('Users', [], {});
+    let data = service.importCSV(__dirname+'/company.csv').then(res => {
+      console.log(res)
+       queryInterface.bulkInsert('Company', [res], {});
+    })
   },
 
   async down (queryInterface, Sequelize) {
