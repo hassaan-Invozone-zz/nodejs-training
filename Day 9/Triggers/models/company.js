@@ -16,15 +16,17 @@ module.exports = (sequelize, DataTypes) => {
   Company.init({
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      isInt:true
     }
   }, {
     hooks: {
       beforeValidate: (user, options) => {
-        console.log(user.dataValues,'before')
+        // console.log(user.dataValues,'before')
       },
       afterCreate: (user, options) => {
-        console.log(user.dataValues,'after')
+        // console.log(user.dataValues,'after')
+        console.log('here')
       }
     },
     sequelize,

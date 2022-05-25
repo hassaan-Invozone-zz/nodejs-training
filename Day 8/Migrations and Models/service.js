@@ -1,22 +1,53 @@
 
 const csv = require('csv-parser');
 const fs = require('fs');
+const { parse } = require('csv-parse');
 
 
 var func = {
-    importCSV:  (path) => {
+    oldImportCSV:  (path) => {
+        results = [];
         return new Promise((resolve, reject) => {
             return fs.createReadStream(path)
                 .pipe(csv())
                 .on('data', (row) => {
-                    return resolve(row);
-                })
-                .on('end', (row) => {
-                    console.log('CSV file successfully processed');
+                    const add = {
+                        name: row.name ,
+                        // lastName:row[2],
+                        // email: row[1],
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    };
+                    results.push(add);
+
+                }).on('error', function(_err) {
+                    reject(_err);
+                }).on('end', function(_res) {
+                    resolve(results);
                 });
         });
-
     },
+    newImportCSV:  () =>{
+        const results = [];
+        return new Promise((resolve,reject)=>{
+            fs.createReadStream(__dirname+'/seeders/company.csv')
+                .pipe(parse({ delimiter: ",", from_line: 2 }))
+                .on("data",  function (row) {
+                    const add = {
+                        name: row[0] ,
+                        // lastName:row[2],
+                        // email: row[1],
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    };
+                    results.push(add);
+                })
+                .on('close', () => {
+                    resolve(results);
+                });
+        })
+    },
+
     seedFromCsv:  (_q, _table, _file, _map, _types) => {
         let chunk = [];
         return new Promise((resolve, reject) => {
