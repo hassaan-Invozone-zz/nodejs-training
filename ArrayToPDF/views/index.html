@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<button class="download-btn">
+    Download
+</button>
+<table id="customers">
+    <tr>
+        <th>Sr #</th>
+        <th>Company</th>
+        <th>Contact</th>
+        <th>Country</th>
+    </tr>
+</table>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        getdata();
+        function getdata(){
+            $.ajax({
+                url:'/get-data',
+                method:'get',
+                dataType:'json',
+                success:function(response){
+                    $.each(response.data,function(index,data){
+                        $('tbody').append(`<tr><td>${++index}</td>
+                            <td>${data.name}</td>
+                            <td>${data.surname}</td>
+                            <td>${data.age}</td>
+                            </tr>`);
+                    });
+                },
+                error:function(response){
+                    alert('server error');
+                }
+            });
+        }
+
+        $('.download-btn').click(function(){
+            var dummyData = [
+                {
+                    name:'John',
+                    surname:'Doe',
+                    age:25
+                },
+                {
+                    name:'Jane',
+                    surname:'War',
+                    age:21
+                },
+                {
+                    name:'Shane',
+                    surname:'Meyer',
+                    age:22
+                }
+            ];
+            $.ajax({
+                url:'/download-pdf',
+                method:'post',
+                dataType:'json',
+                data:{'data':dummyData},
+                success:function(response){
+                    console.log(response)
+                },
+                // error:function(response){
+                //     alert('server error occured')
+                // }
+            });
+        });
+    });
+</script>
+</html>
+
+

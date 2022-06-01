@@ -1,35 +1,35 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Invoices', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      firstName: {
-        type: Sequelize.STRING,
+      paymentId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'PaymentVariations',
+          key: 'id',
+        },
       },
-      lastName: {
-        type: Sequelize.STRING,
+      UserId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
-      email: {
-        type: Sequelize.STRING,
+      image: {
         allowNull: false,
-        unique: true,
+        type: Sequelize.BLOB,
       },
-      phone: {
-        type: Sequelize.STRING,
+      status: {
         allowNull: false,
-      },
-      type: {
-        type: Sequelize.ENUM('admin', 'client'),
-      },
-      password: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Invoices');
   },
 };
